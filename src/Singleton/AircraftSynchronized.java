@@ -7,10 +7,22 @@ public class AircraftSynchronized {
 
     private AircraftSynchronized(){}
 
-    // LAZY INSTANTIATION - at time of object calling
-    public static synchronized AircraftSynchronized getInstance(){
+//    // LAZY INSTANTIATION - at time of object calling
+//    public static synchronized AircraftSynchronized getInstance(){
+//        if(instance == null){
+//            instance = new AircraftSynchronized();
+//        }
+//        return instance;
+//    }
+
+    // Run synchronized only for the first time
+    // the instance will be kept in-sync for the rest
+    // of the session
+    public static  AircraftSynchronized getInstance(){
         if(instance == null){
-            instance = new AircraftSynchronized();
+            synchronized (AircraftSynchronized.class){
+                instance = new AircraftSynchronized();
+            }
         }
         return instance;
     }
