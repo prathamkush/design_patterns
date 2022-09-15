@@ -1,21 +1,17 @@
 package Singleton;
 
-public class AircraftEager {
+public class AircraftSynchronized {
 
-    // 1.   So that instance created at load time
-    // 2.   private member -> No outside class can access it to create instance
-    // 3.   static -> Inside AircraftEager class you don't want any kind of
-    //                new instance be loaded
+    // execute this at run time
+    private static AircraftSynchronized instance;
 
+    private AircraftSynchronized(){}
 
-    // for load time execution
-    private static AircraftEager instance = new AircraftEager();
-
-
-    private AircraftEager(){}
-
-    // Early Instantiation
-    public static AircraftEager getInstance(){
+    // LAZY INSTANTIATION - at time of object calling
+    public static synchronized AircraftSynchronized getInstance(){
+        if(instance == null){
+            instance = new AircraftSynchronized();
+        }
         return instance;
     }
 
@@ -24,11 +20,12 @@ public class AircraftEager {
     }
 }
 
-class client2{
+class client3{
+
     public static void main(String[] args) {
-        AircraftEager obj1 = AircraftEager.getInstance();
+        AircraftSynchronized obj1 = AircraftSynchronized.getInstance();
         obj1.fly();
-        AircraftEager obj2 = AircraftEager.getInstance();
+        AircraftSynchronized obj2 = AircraftSynchronized.getInstance();
         obj2.fly();
     }
 

@@ -1,6 +1,6 @@
 package Singleton;
 
-public class AircraftEager {
+public class AircraftLazy {
 
     // 1.   So that instance created at load time
     // 2.   private member -> No outside class can access it to create instance
@@ -9,13 +9,18 @@ public class AircraftEager {
 
 
     // for load time execution
-    private static AircraftEager instance = new AircraftEager();
+    // private static AircraftEager instance = new AircraftEager();
 
+    // execute this at run time
+    private static AircraftLazy instance;
 
-    private AircraftEager(){}
+    private AircraftLazy(){}
 
-    // Early Instantiation
-    public static AircraftEager getInstance(){
+    // LAZY INSTANTIATION - at time of object calling
+    public static AircraftLazy getInstance(){
+        if(instance == null){
+            instance = new AircraftLazy();
+        }
         return instance;
     }
 
@@ -24,7 +29,7 @@ public class AircraftEager {
     }
 }
 
-class client2{
+class client1{
     public static void main(String[] args) {
         AircraftEager obj1 = AircraftEager.getInstance();
         obj1.fly();
